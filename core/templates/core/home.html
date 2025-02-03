@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% block title %}Logis Company{% endblock %}
+{% load static %}
+
+{% block content %}
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero d-flex align-items-center">
+        <div class="container">
+            <div class="row gy-4 d-flex justify-content-between">
+                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h2 data-aos="fade-up">Logis Company And Programming Team</h2>
+
+                    <div class="row gy-4" data-aos="fade-up" data-aos-delay="400">
+
+                        <div class="col-lg-3 col-6">
+                            <div class="stats-item text-center w-100 h-100">
+                                <span data-purecounter-start="0" data-purecounter-end="232"
+                                      data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Clients</p>
+                            </div>
+                        </div><!-- End Stats Item -->
+
+                        <div class="col-lg-3 col-6">
+                            <div class="stats-item text-center w-100 h-100">
+                                <span data-purecounter-start="0" data-purecounter-end="521"
+                                      data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Projects</p>
+                            </div>
+                        </div><!-- End Stats Item -->
+
+                        <div class="col-lg-3 col-6">
+                            <div class="stats-item text-center w-100 h-100">
+                                <span data-purecounter-start="0" data-purecounter-end="1453"
+                                      data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Support</p>
+                            </div>
+                        </div><!-- End Stats Item -->
+
+                        <div class="col-lg-3 col-6">
+                            <div class="stats-item text-center w-100 h-100">
+                                <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                                      class="purecounter"></span>
+                                <p>Workers</p>
+                            </div>
+                        </div><!-- End Stats Item -->
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+                    <img src="{% static 'img/hero-img.svg' %}" class="img-fluid mb-3 mb-lg-0" alt="">
+                </div>
+
+            </div>
+        </div>
+    </section><!-- End Hero Section -->
+
+    <main id="main">
+
+        <!-- ======= Featured Services Section ======= -->
+        <section id="featured-services" class="featured-services">
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up">
+                        <div class="icon flex-shrink-0"><i class="fa-solid fa-code"></i></div>
+                        <div>
+                            <h4 class="title">Web Development</h4>
+                            <p class="description">Web development includes the design and creation of websites and web
+                                applications that allow users to interact with content.</p>
+                        </div>
+                    </div>
+                    <!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon flex-shrink-0"><i class="fa-solid fa-mobile-alt"></i></div>
+                        <div>
+                            <h4 class="title">Mobile Programming</h4>
+                            <p class="description">Development of mobile applications for various operating systems such
+                                as Android and iOS to provide an optimized user experience.</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon flex-shrink-0"><i class="fa-solid fa-database"></i></div>
+                        <div>
+                            <h4 class="title">Database Management</h4>
+                            <p class="description">Management and design of databases for efficient and secure storage
+                                and retrieval of information.</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                </div>
+
+            </div>
+        </section><!-- End Featured Services Section -->
+
+
+        <!-- ======= About Us Section ======= -->
+        <section id="about" class="about pt-0">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row gy-4">
+                    <div class="col-lg-6 position-relative align-self-start order-lg-last order-first">
+                        <img src="{% static 'img/cta-bg.jpg' %}" class="img-fluid" style="width: 100%; height: 480px;object-fit: cover" alt="About Us">
+                    </div>
+                    <div class="col-lg-6 content order-last order-lg-first">
+                        <h3>About Us</h3>
+                        <p style="text-align: justify;line-height: 30px">{{ site_settings.about_us_text }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End About Us Section -->
+
+
+        <!-- ======= Services Section ======= -->
+        <section id="service" class="services pt-0">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-header">
+                    <span>Our Services</span>
+                    <h2>Our Services</h2>
+
+                </div>
+
+                <div class="row gy-4">
+
+                    {% for service in services %}
+                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="{{ service.image.url }}" alt="{{ service.title }}"
+                                         class="img-fluid fixed-size-img">
+                                </div>
+                                <h3><a href="{% url 'core:service_detail' service.slug %}"
+                                       class="stretched-link">{{ service.title }}</a></h3>
+                                <p>{{ service.description|truncatewords:20 }}</p>
+                            </div>
+                        </div><!-- End Card Item -->
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </section><!-- End Services Section -->
+
+        <!-- ======= Testimonials Section ======= -->
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+
+                <div class="slides-1 swiper" data-aos="fade-up">
+                    <div class="swiper-wrapper">
+
+                        {% for comment in comments %}
+                            <div class="swiper-slide">
+                                <div class="testimonial-item">
+                                    <img src="{{ comment.image.url }}" class="testimonial-img" alt="">
+                                    <h3>{{ comment.full_name }}</h3>
+                                    <h4>{{ comment.profession }}</h4>
+                                    <div class="stars">
+                                        {% for i in ""|rjust:comment.star %}
+                                            <i class="bi bi-star-fill"></i>
+                                        {% endfor %}
+                                    </div>
+                                    <p>
+                                        <i class="bi bi-quote quote-icon-left"></i>
+                                        {{ comment.description }}
+                                        <i class="bi bi-quote quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div><!-- End testimonial item -->
+                        {% endfor %}
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+        </section><!-- End Testimonials Section -->
+
+        <!-- ======= Frequently Asked Questions Section ======= -->
+        <section id="faq" class="faq">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-header">
+                    <span>Frequently Asked Questions</span>
+                    <h2>Frequently Asked Questions</h2>
+
+                </div>
+
+                <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-lg-10">
+
+                        <div class="accordion accordion-flush" id="faqlist">
+                            {% for faq in faq_list %}
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq-content-{{ forloop.counter }}">
+                                            <i class="bi bi-question-circle question-icon"></i>
+                                            {{ faq.question }}
+                                        </button>
+                                    </h3>
+                                    <div id="faq-content-{{ forloop.counter }}" class="accordion-collapse collapse"
+                                         data-bs-parent="#faqlist">
+                                        <div class="accordion-body">{{ faq.answer }}</div>
+                                    </div>
+                                </div><!-- # Faq item-->
+                            {% endfor %}
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Frequently Asked Questions Section -->
+
+    </main><!-- End #main -->
+
+{% endblock %}

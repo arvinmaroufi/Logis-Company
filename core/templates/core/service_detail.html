@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}{{ service.title }}{% endblock %}
+{% load static %}
+
+{% block content %}
+
+    <main id="main">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs">
+            <div class="page-header d-flex align-items-center"
+                 style="background-image: url('{% static 'img/page-header.jpg' %}');">
+                <div class="container position-relative">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <h2 style="margin-bottom: 110px">{{ service.title }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Breadcrumbs -->
+
+        <!-- ======= Service Details Section ======= -->
+        <section id="service-details" class="service-details">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-4">
+                        <div class="services-list">
+                            {% for s in services %}
+                                <a href="{% url 'core:service_detail' s.slug %}" class="{% if s.slug == current_service_slug %}active{% endif %}">{{ s.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <img src="{{ service.image.url }}" alt="" class="img-fluid services-img">
+                        <h3>{{ service.title }}</h3>
+                        <p style="text-align: justify;line-height: 30px">{{ service.description }}</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Service Details Section -->
+
+    </main><!-- End #main -->
+
+{% endblock %}
