@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% load static %}
+
+{% block content %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+        <div class="page-header d-flex align-items-center" style="background-image: url('{% static 'img/page-header.jpg' %}');">
+            <div class="container position-relative">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <h2>{{ article.title }}</h2>
+                        <br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Article Detail Section ======= -->
+    <section id="article-detail" class="article-detail">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>{{ article.title }}</h1>
+                    <p class="meta"><b>Date: </b>{{ article.created_at|date }}</p>
+                    <p class="meta"><b>Author: </b>{{ article.author }}</p>
+                    <div class="article-main-img">
+                        {% if article.thumbnail %}
+                            <img src="{{ article.thumbnail.url }}" alt="{{ article.title }}" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'img/image_not_available.jpg' %}" alt="{{ article.title }}" class="img-fluid">
+                        {% endif %}
+                    </div>
+                    <p style="text-align: justify;line-height: 30px">{{ article.description }}</p>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <h3>Recent Articles</h3>
+                        <div class="recent-articles">
+                            {% for articles in latest_articles %}
+                                <div class="article-item">
+                                    {% if articles.thumbnail %}
+                                        <img src="{{ articles.thumbnail.url }}" alt="{{ articles.title|truncatewords:6 }}" class="img-fluid recent-article-img">
+                                    {% else %}
+                                        <img src="{% static 'img/image_not_available.jpg' %}" alt="{{ articles.title|truncatewords:6 }}" class="img-fluid recent-article-img">
+                                    {% endif %}
+                                    <h4><a href="{{ articles.get_absolute_url }}">{{ articles.title|truncatewords:6 }}</a></h4>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Article Detail Section -->
+</main>
+{% endblock %}

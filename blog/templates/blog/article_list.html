@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Blog{% endblock %}
+{% load static %}
+
+{% block content %}
+    <main id="main">
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs">
+            <div class="page-header d-flex align-items-center"
+                 style="background-image: url('{% static 'img/page-header.jpg' %}');">
+                <div class="container position-relative">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <h2>Blog</h2>
+                            <p>We hope you enjoy the articles.</p>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Breadcrumbs -->
+
+        <!-- ======= Article List Section ======= -->
+        <section id="article-list" class="article-list">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-header">
+                    <span>Articles</span>
+                    <h2>Articles</h2>
+                </div>
+
+                <div class="row gy-4">
+
+                    {% for article in articles %}
+                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card">
+                                <div class="card-img">
+                                    {% if article.thumbnail %}
+                                        <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}" class="img-fluid">
+                                    {% else %}
+                                        <img src="{% static 'img/image_not_available.jpg' %}" alt="" class="img-fluid">
+                                    {% endif %}
+                                </div>
+                                <div class="card-body">
+                                    <h3><a href="{{ article.get_absolute_url }}" class="stretched-link">{{ article.title|truncatewords:6 }}</a></h3>
+                                    <p>{{ article.description|truncatewords:13 }}</p>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{% static 'img/author.png' %}" alt="{{ article.author.username }}" class="rounded-circle me-2" width="30">
+                                        <small class="text-muted">{{ article.author.username }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Card Item -->
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </section><!-- End Article List Section -->
+    </main>
+{% endblock %}
