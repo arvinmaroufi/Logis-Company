@@ -1,0 +1,8 @@
+asgiref==3.8.1
+Django==5.1.5
+django-cleanup==9.0.0
+pillow==11.1.0
+setuptools==75.7.0
+sqlparse==0.5.3
+tzdata==2025.1
+wheel==0.45.1
