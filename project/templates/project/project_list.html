@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Project List{% endblock %}
+{% load static %}
+
+{% block content %}
+    <main id="main">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs">
+            <div class="page-header d-flex align-items-center"
+                 style="background-image: url('{% static 'img/page-header.jpg' %}');">
+                <div class="container position-relative">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <h2>Project</h2>
+                            <p>We hope you enjoy the projects.</p>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Breadcrumbs -->
+
+        <!-- ======= Project List Section ======= -->
+        <section id="project-list" class="project-list">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-header">
+                    <span>Our Projects</span>
+                    <h2>Our Projects</h2>
+                </div>
+
+                <div class="row gy-4">
+                    {% for project in projects %}
+                        <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}"
+                                         class="img-fluid fixed-size-img" data-bs-toggle="modal"
+                                         data-bs-target="#projectModal{{ project.id }}">
+                                </div>
+                                <h3 style="text-align: center;margin-top: 10px;margin-bottom: 10px;">{{ project.title }}</h3>
+                            </div>
+                        </div><!-- End Card Item -->
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1"
+                             aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="projectModalLabel{{ project.id }}">{{ project.title }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="carousel{{ project.id }}" class="carousel slide" data-bs-ride="false">
+                                            <div class="carousel-inner">
+                                                {% for image in project.project_image.all %}
+                                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                        <img src="{{ image.image.url }}" class="d-block w-100"
+                                                             alt="{{ project.title }}">
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <button class="carousel-control-prev" type="button"
+                                                    data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                    data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Modal -->
+
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+        <!-- End Project List Section -->
+    </main>
+
+{% endblock %}

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # My Apps
     'core',
     'blog',
+    'project',
 ]
 
 MIDDLEWARE = [

@@ -1,17 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ContactUsForm
 from .models import SiteSettings, FAQ, Service, Comment
+from project.models import Project
 
 
 def home(request):
     site_settings = SiteSettings.objects.first()
     faq_list = FAQ.objects.all()
     services = Service.objects.all()
+    projects = Project.objects.all()
     comments = Comment.objects.all()[:5]
     context = {
         'site_settings': site_settings,
         'faq_list': faq_list,
         'services': services,
+        'projects': projects,
         'comments': comments,
     }
     return render(request, 'core/home.html', context)

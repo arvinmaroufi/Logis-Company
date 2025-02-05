@@ -1922,6 +1922,18 @@ section {
 
 
 
+
+/* تنظیمات برای عکس‌های داخل اسلایدر */
+.carousel-item img {
+    width: 100%; /* عرض عکس را 100% نگه دار */
+    height: 400px; /* ارتفاع ثابت برای عکس‌ها */
+    object-fit: cover; /* حفظ نسبت تصویر و پر کردن فضای تعیین شده */
+    aspect-ratio: 16 / 9; /* نسبت ابعاد ثابت (مثلاً 16:9) */
+    border-radius: 8px; /* گوشه‌های گرد */
+}
+
+
+
 /* ================================================== */
 /* Recent Articles Styles */
 /* ================================================== */
@@ -2005,6 +2017,9 @@ section {
 
 
 
+.modal-backdrop {
+    display: none !important;
+}
 
 
 .fixed-size-img {
@@ -2012,7 +2027,6 @@ section {
     height: 300px;
     object-fit: cover;
 }
-
 
 
 /* Article List Styles */
