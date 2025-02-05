@@ -36,16 +36,19 @@
                             <div class="card">
                                 <div class="card-img">
                                     {% if article.thumbnail %}
-                                        <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}" class="img-fluid">
+                                        <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}"
+                                             class="img-fluid">
                                     {% else %}
                                         <img src="{% static 'img/image_not_available.jpg' %}" alt="" class="img-fluid">
                                     {% endif %}
                                 </div>
                                 <div class="card-body">
-                                    <h3><a href="{{ article.get_absolute_url }}" class="stretched-link">{{ article.title|truncatewords:6 }}</a></h3>
+                                    <h3><a href="{{ article.get_absolute_url }}"
+                                           class="stretched-link">{{ article.title|truncatewords:6 }}</a></h3>
                                     <p>{{ article.description|truncatewords:13 }}</p>
                                     <div class="d-flex align-items-center">
-                                        <img src="{% static 'img/author.png' %}" alt="{{ article.author.username }}" class="rounded-circle me-2" width="30">
+                                        <img src="{% static 'img/author.png' %}" alt="{{ article.author.username }}"
+                                             class="rounded-circle me-2" width="30">
                                         <small class="text-muted">{{ article.author.username }}</small>
                                     </div>
                                 </div>
@@ -57,5 +60,38 @@
 
             </div>
         </section><!-- End Article List Section -->
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            {% if articles.has_other_pages %}
+                <ul class="pagination justify-content-center mb-5">
+                    {% if articles.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ articles.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for page in pages_to_show %}
+                        {% if page == '...' %}
+                            <li class="page-item"><a class="page-link">...</a></li>
+                        {% elif articles.number == page %}
+                            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if articles.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ articles.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </nav>
+        <!-- End Pagination -->
     </main>
 {% endblock %}

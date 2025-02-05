@@ -35,9 +35,11 @@
                         <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
                             <div class="card">
                                 <div class="card-img">
-                                    <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}"
-                                         class="img-fluid fixed-size-img" data-bs-toggle="modal"
-                                         data-bs-target="#projectModal{{ project.id }}">
+                                    {% if project.thumbnail %}
+                                        <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="img-fluid fixed-size-img" data-bs-toggle="modal" data-bs-target="#projectModal{{ project.id }}">
+                                    {% else %}
+                                        <img src="{% static 'img/image_not_available.jpg' %}" alt="{{ project.title }}" class="img-fluid fixed-size-img" data-bs-toggle="modal" data-bs-target="#projectModal{{ project.id }}">
+                                    {% endif %}
                                 </div>
                                 <h3 style="text-align: center;margin-top: 10px;margin-bottom: 10px;">{{ project.title }}</h3>
                             </div>
@@ -86,6 +88,39 @@
             </div>
         </section>
         <!-- End Project List Section -->
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            {% if projects.has_other_pages %}
+                <ul class="pagination justify-content-center mb-5">
+                    {% if projects.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ projects.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for page in pages_to_show %}
+                        {% if page == '...' %}
+                            <li class="page-item"><a class="page-link">...</a></li>
+                        {% elif projects.number == page %}
+                            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if projects.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ projects.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </nav>
+        <!-- End Pagination -->
     </main>
 
 {% endblock %}

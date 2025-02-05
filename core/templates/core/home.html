@@ -15,15 +15,7 @@
 
                         <div class="col-lg-3 col-6">
                             <div class="stats-item text-center w-100 h-100">
-                                <span data-purecounter-start="0" data-purecounter-end="232"
-                                      data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Clients</p>
-                            </div>
-                        </div><!-- End Stats Item -->
-
-                        <div class="col-lg-3 col-6">
-                            <div class="stats-item text-center w-100 h-100">
-                                <span data-purecounter-start="0" data-purecounter-end="521"
+                                <span data-purecounter-start="0" data-purecounter-end="{{ project_count }}"
                                       data-purecounter-duration="1" class="purecounter"></span>
                                 <p>Projects</p>
                             </div>
@@ -31,17 +23,17 @@
 
                         <div class="col-lg-3 col-6">
                             <div class="stats-item text-center w-100 h-100">
-                                <span data-purecounter-start="0" data-purecounter-end="1453"
+                                <span data-purecounter-start="0" data-purecounter-end="{{ article_count }}"
                                       data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Support</p>
+                                <p>Articles</p>
                             </div>
                         </div><!-- End Stats Item -->
 
                         <div class="col-lg-3 col-6">
                             <div class="stats-item text-center w-100 h-100">
-                                <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
-                                      class="purecounter"></span>
-                                <p>Workers</p>
+                                <span data-purecounter-start="0" data-purecounter-end="{{ comment_count }}"
+                                      data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Comments</p>
                             </div>
                         </div><!-- End Stats Item -->
 
@@ -151,17 +143,13 @@
         <!-- ======= Call To Action Section ======= -->
         <section id="call-to-action" class="call-to-action">
             <div class="container" data-aos="zoom-out">
-
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h3>Call To Action</h3>
-                        <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.</p>
-                        <a class="cta-btn" href="#">Call To Action</a>
+                        <h3 style="color: #fff; font-size: 28px; font-weight: 700;">Contact Us</h3>
+                        <p style="color: #fff;">{{ site_settings.contact_us_text }}</p>
+                        <a class="cta-btn" href="{% url 'core:contact' %}">Contact Us</a>
                     </div>
                 </div>
-
             </div>
         </section><!-- End Call To Action Section -->
 
@@ -179,9 +167,15 @@
                         <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
                             <div class="card">
                                 <div class="card-img">
-                                    <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}"
-                                         class="img-fluid fixed-size-img" data-bs-toggle="modal"
-                                         data-bs-target="#projectModal{{ project.id }}">
+                                    {% if project.thumbnail %}
+                                        <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}"
+                                             class="img-fluid fixed-size-img" data-bs-toggle="modal"
+                                             data-bs-target="#projectModal{{ project.id }}">
+                                    {% else %}
+                                        <img src="{% static 'img/image_not_available.jpg' %}" alt="{{ project.title }}"
+                                             class="img-fluid fixed-size-img" data-bs-toggle="modal"
+                                             data-bs-target="#projectModal{{ project.id }}">
+                                    {% endif %}
                                 </div>
                                 <h3 style="text-align: center;margin-top: 10px;margin-bottom: 10px;">{{ project.title }}</h3>
                             </div>

@@ -135,7 +135,9 @@
     </footer><!-- End Footer -->
     <!-- End Footer -->
 
-    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div class="scroll-top d-flex align-items-center justify-content-center" style="cursor: pointer;">
+        <i class="bi bi-arrow-up-short"></i>
+    </div>
 
     <div id="preloader"></div>
 
@@ -149,6 +151,15 @@
 
     <!-- Template Main JS File -->
     <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+        document.querySelector('.scroll-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // برای اسکرول نرم
+            });
+        });
+    </script>
 
 </body>
 
