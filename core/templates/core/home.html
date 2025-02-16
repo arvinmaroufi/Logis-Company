@@ -121,19 +121,23 @@
 
                 <div class="row gy-4">
 
-                    {% for service in services %}
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="{{ service.image.url }}" alt="{{ service.title }}"
-                                         class="img-fluid fixed-size-img">
+                    {% if services %}
+                        {% for service in services %}
+                            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="{{ service.image.url }}" alt="{{ service.title }}"
+                                             class="img-fluid fixed-size-img">
+                                    </div>
+                                    <h3><a href="{% url 'core:service_detail' service.slug %}"
+                                           class="stretched-link">{{ service.title }}</a></h3>
+                                    <p>{{ service.description|truncatewords:20 }}</p>
                                 </div>
-                                <h3><a href="{% url 'core:service_detail' service.slug %}"
-                                       class="stretched-link">{{ service.title }}</a></h3>
-                                <p>{{ service.description|truncatewords:20 }}</p>
-                            </div>
-                        </div><!-- End Card Item -->
-                    {% endfor %}
+                            </div><!-- End Card Item -->
+                        {% endfor %}
+                    {% else %}
+                        <h3 style="text-align: center;">There is no service</h3>
+                    {% endif %}
 
                 </div>
 
@@ -143,15 +147,18 @@
         <!-- ======= Call To Action Section ======= -->
         <section id="call-to-action" class="call-to-action">
             <div class="container" data-aos="zoom-out">
+
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h3 style="color: #fff; font-size: 28px; font-weight: 700;">Contact Us</h3>
-                        <p style="color: #fff;">{{ site_settings.contact_us_text }}</p>
+                        <h3>Contact Us</h3>
+                        <p>{{ site_settings.contact_us_text }}</p>
                         <a class="cta-btn" href="{% url 'core:contact' %}">Contact Us</a>
                     </div>
                 </div>
+
             </div>
-        </section><!-- End Call To Action Section -->
+        </section>
+        <!-- End Call To Action Section -->
 
         <!-- ======= Project List Section ======= -->
         <section id="project-list" class="project-list">
@@ -163,62 +170,68 @@
                 </div>
 
                 <div class="row gy-4">
-                    {% for project in projects %}
-                        <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card">
-                                <div class="card-img">
-                                    {% if project.thumbnail %}
-                                        <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}"
-                                             class="img-fluid fixed-size-img" data-bs-toggle="modal"
-                                             data-bs-target="#projectModal{{ project.id }}">
-                                    {% else %}
-                                        <img src="{% static 'img/image_not_available.jpg' %}" alt="{{ project.title }}"
-                                             class="img-fluid fixed-size-img" data-bs-toggle="modal"
-                                             data-bs-target="#projectModal{{ project.id }}">
-                                    {% endif %}
-                                </div>
-                                <h3 style="text-align: center;margin-top: 10px;margin-bottom: 10px;">{{ project.title }}</h3>
-                            </div>
-                        </div><!-- End Card Item -->
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1"
-                             aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title"
-                                            id="projectModalLabel{{ project.id }}">{{ project.title }}</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                    {% if projects %}
+                        {% for project in projects %}
+                            <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card">
+                                    <div class="card-img">
+                                        {% if project.thumbnail %}
+                                            <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}"
+                                                 class="img-fluid fixed-size-img" data-bs-toggle="modal"
+                                                 data-bs-target="#projectModal{{ project.id }}">
+                                        {% else %}
+                                            <img src="{% static 'img/image_not_available.jpg' %}"
+                                                 alt="{{ project.title }}"
+                                                 class="img-fluid fixed-size-img" data-bs-toggle="modal"
+                                                 data-bs-target="#projectModal{{ project.id }}">
+                                        {% endif %}
                                     </div>
-                                    <div class="modal-body">
-                                        <div id="carousel{{ project.id }}" class="carousel slide" data-bs-ride="false">
-                                            <div class="carousel-inner">
-                                                {% for image in project.project_image.all %}
-                                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                                        <img src="{{ image.image.url }}" class="d-block w-100"
-                                                             alt="{{ project.title }}">
-                                                    </div>
-                                                {% endfor %}
+                                    <h3 style="text-align: center;margin-top: 10px;margin-bottom: 10px;">{{ project.title }}</h3>
+                                </div>
+                            </div><!-- End Card Item -->
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1"
+                                 aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                id="projectModalLabel{{ project.id }}">{{ project.title }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="carousel{{ project.id }}" class="carousel slide"
+                                                 data-bs-ride="false">
+                                                <div class="carousel-inner">
+                                                    {% for image in project.project_image.all %}
+                                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                            <img src="{{ image.image.url }}" class="d-block w-100"
+                                                                 alt="{{ project.title }}">
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                                <button class="carousel-control-prev" type="button"
+                                                        data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button"
+                                                        data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
                                             </div>
-                                            <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </button>
-                                            <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- End Modal -->
+                            </div><!-- End Modal -->
 
-                    {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <h3 style="text-align: center;">There is no project</h3>
+                    {% endif %}
                 </div>
 
             </div>

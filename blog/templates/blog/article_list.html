@@ -31,30 +31,36 @@
 
                 <div class="row gy-4">
 
-                    {% for article in articles %}
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                            <div class="card">
-                                <div class="card-img">
-                                    {% if article.thumbnail %}
-                                        <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}"
-                                             class="img-fluid">
-                                    {% else %}
-                                        <img src="{% static 'img/image_not_available.jpg' %}" alt="" class="img-fluid">
-                                    {% endif %}
-                                </div>
-                                <div class="card-body">
-                                    <h3><a href="{{ article.get_absolute_url }}"
-                                           class="stretched-link">{{ article.title|truncatewords:6 }}</a></h3>
-                                    <p>{{ article.description|truncatewords:13 }}</p>
-                                    <div class="d-flex align-items-center">
-                                        <img src="{% static 'img/author.png' %}" alt="{{ article.author.username }}"
-                                             class="rounded-circle me-2" width="30">
-                                        <small class="text-muted">{{ article.author.username }}</small>
+                    {% if articles %}
+                        {% for article in articles %}
+                            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card">
+                                    <div class="card-img">
+                                        {% if article.thumbnail %}
+                                            <img src="{{ article.thumbnail.url }}"
+                                                 alt="{{ article.title|truncatewords:6 }}"
+                                                 class="img-fluid">
+                                        {% else %}
+                                            <img src="{% static 'img/image_not_available.jpg' %}" alt=""
+                                                 class="img-fluid">
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-body">
+                                        <h3><a href="{{ article.get_absolute_url }}"
+                                               class="stretched-link">{{ article.title|truncatewords:6 }}</a></h3>
+                                        <p>{{ article.description|truncatewords:13 }}</p>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{% static 'img/author.png' %}" alt="{{ article.author.username }}"
+                                                 class="rounded-circle me-2" width="30">
+                                            <small class="text-muted">{{ article.author.username }}</small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- End Card Item -->
-                    {% endfor %}
+                            </div><!-- End Card Item -->
+                        {% endfor %}
+                    {% else %}
+                        <h3 style="text-align: center;">There is no article</h3>
+                    {% endif %}
 
                 </div>
 
