@@ -1921,8 +1921,6 @@ section {
 }
 
 
-
-
 /* تنظیمات برای عکس‌های داخل اسلایدر */
 .carousel-item img {
     width: 100%; /* عرض عکس را 100% نگه دار */
@@ -2123,4 +2121,49 @@ section {
 
 .article-main-img:hover::before {
   opacity: 1; /* نمایش لایه تیره هنگام هاور */
+}
+
+
+
+/* Search Form Styles */
+.search-form .input-group {
+    width: 100%;
+}
+
+.search-form .form-control {
+    border: 1px solid rgba(14, 29, 52, 0.15);
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: var(--color-secondary);
+    transition: border-color 0.3s ease;
+}
+
+.search-form .form-control:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: none;
+}
+
+.search-form .btn-primary {
+    background-color: var(--color-primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.search-form .btn-primary:hover {
+    background-color: #406aff;
+}
+
+@media (max-width: 768px) {
+    .search-form .input-group {
+        flex-direction: column;
+    }
+
+    .search-form .btn-primary {
+        margin-top: 10px;
+        width: 100%;
+    }
 }

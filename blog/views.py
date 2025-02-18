@@ -47,3 +47,20 @@ def article_detail(request, slug):
     }
     return render(request, 'blog/article_detail.html', context)
 
+
+def article_search(request):
+    articles_search = request.GET.get('search')
+    articles = Article.objects.filter(title__icontains=articles_search)
+    page_number = request.GET.get('page')
+    paginator = Paginator(articles, 6)
+    object_list = paginator.get_page(page_number)
+    pages_to_show = get_pages_to_show(object_list.number, paginator.num_pages)
+    site_settings = SiteSettings.objects.first()
+    services = Service.objects.all()
+    context = {
+        'articles': object_list,
+        'pages_to_show': pages_to_show,
+        'site_settings': site_settings,
+        'services': services,
+    }
+    return render(request, 'blog/article_list.html', context)

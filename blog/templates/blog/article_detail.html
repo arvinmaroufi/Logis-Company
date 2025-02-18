@@ -40,6 +40,15 @@
 
                 <div class="col-lg-4">
                     <div class="sidebar">
+
+                        <!-- Search Form -->
+                        <form action="{% url 'blog:article_search' %}" method="get" role="search" class="search-form mb-4">
+                            <div class="input-group">
+                                <input type="search" name="search" value="{{ request.GET.search }}" class="form-control" placeholder="Search articles..." aria-label="Search articles" required>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+
                         <h3>Recent Articles</h3>
                         <div class="recent-articles">
                             {% for articles in latest_articles %}
